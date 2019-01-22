@@ -15,27 +15,27 @@
         android:orientation="horizontal">
 
         <ImageButton android:id="@id/exo_rew"
-            android:tint="#FF5D29C1"
+            android:tint="@color/colorAccent"
             style="@style/ExoMediaButton.Rewind"
             android:contentDescription="@string/app_name" />
 
         <ImageButton android:id="@id/exo_repeat_toggle"
-            android:tint="#FF5D29C1"
+            android:tint="@color/colorAccent"
             style="@style/ExoMediaButton"
             android:contentDescription="@string/app_name"/>
 
         <ImageButton android:id="@id/exo_play"
-            android:tint="#FF5D29C1"
+            android:tint="@color/colorAccent"
             style="@style/ExoMediaButton.Play"
             android:contentDescription="@string/app_name"/>
 
         <ImageButton android:id="@id/exo_pause"
-            android:tint="#FF5D29C1"
+            android:tint="@color/colorAccent"
             style="@style/ExoMediaButton.Pause"
             android:contentDescription="@string/app_name"/>
 
         <ImageButton android:id="@id/exo_ffwd"
-            android:tint="#FF5D29C1"
+            android:tint="@color/colorAccent"
             style="@style/ExoMediaButton.FastForward"
             android:contentDescription="@string/app_name"/>
 
