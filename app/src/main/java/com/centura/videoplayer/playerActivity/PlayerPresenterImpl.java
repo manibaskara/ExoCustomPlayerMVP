@@ -1,8 +1,8 @@
 package com.centura.videoplayer.playerActivity;
 
 import com.centura.videoplayer.data.Models.VideoResponseModel;
-import com.centura.videoplayer.data.source.Retrofit.room.VideoInfo;
-import com.centura.videoplayer.data.source.Retrofit.room.VideoInfoDAO;
+import com.centura.videoplayer.data.source.room.VideoInfo;
+import com.centura.videoplayer.data.source.room.VideoInfoDAO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,21 +12,21 @@ import java.util.Objects;
 /**
  * Created by Manikandan Baskaran on 22-01-2019.
  */
-public class PlayerActivityPresenterImpl implements PlayerActivityContract.Presenter {
+public class PlayerPresenterImpl implements PlayerActContract.Presenter {
 
-    private PlayerActivityContract.View playerActView;
+    private PlayerActContract.View playerActView;
     private ArrayList<VideoResponseModel> videoResponseModelArrayList;
     private HashMap<String, Integer> trackAndPositionMap;
-    private PlayerActivityModelImpl videoInfoModel;
+    private PlayerModelImpl videoInfoModel;
 
-    PlayerActivityPresenterImpl(PlayerActivityContract.View playerActView
+    PlayerPresenterImpl(PlayerActContract.View playerActView
             , ArrayList<VideoResponseModel> videoResponseModelArrayList
             , HashMap<String, Integer> trackAndPositionMap
             , VideoInfoDAO videoInfoDAO) {
         this.playerActView = playerActView;
         this.videoResponseModelArrayList = videoResponseModelArrayList;
         this.trackAndPositionMap = trackAndPositionMap;
-        videoInfoModel = new PlayerActivityModelImpl(videoInfoDAO);
+        videoInfoModel = new PlayerModelImpl(videoInfoDAO);
     }
 
     @Override
@@ -94,9 +94,6 @@ public class PlayerActivityPresenterImpl implements PlayerActivityContract.Prese
         playerActView.setUI(videoResponseModelSelected, tempArrayList);
     }
 
-    private void setVideoInfoModel(String videoId, long positionMillis, boolean isEnded) {
-    }
-
     @Override
     public VideoInfo getVideoInfo(String videoId) {
         return videoInfoModel.getVideoInfo(videoId);
@@ -105,7 +102,14 @@ public class PlayerActivityPresenterImpl implements PlayerActivityContract.Prese
     @Override
     public void insertVideoInfo(int position, long currentMillis, boolean isEnded) {
         String videoId = getKeyByValue(trackAndPositionMap, position);
+        if (videoId!=null)
         videoInfoModel.addVideoInfo(new VideoInfo(videoId, currentMillis, isEnded));
+    }
+
+    @Override
+    public void onClearHistoryButton() {
+        videoInfoModel.deleteAllInfo();
+        playerActView.showToast("Cleared Player History.");
     }
 
 

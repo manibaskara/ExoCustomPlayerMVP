@@ -17,11 +17,11 @@ import retrofit2.Response;
  * Created by Manikandan Baskaran on 20-01-2019.
  */
 
-public class HomeModelImpl implements HomeActivityContract.Model {
+public class HomeModelImpl implements HomeActContract.Model {
 
-    private HomeActivityContract.onGetDataListener onGetDataListener;
+    private HomeActContract.onGetDataListener onGetDataListener;
 
-    HomeModelImpl(HomeActivityContract.onGetDataListener onGetDataListener) {
+    HomeModelImpl(HomeActContract.onGetDataListener onGetDataListener) {
         this.onGetDataListener = onGetDataListener;
     }
 

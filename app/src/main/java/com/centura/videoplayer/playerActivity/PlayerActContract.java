@@ -2,14 +2,14 @@ package com.centura.videoplayer.playerActivity;
 
 import com.centura.videoplayer.base.BasePresenter;
 import com.centura.videoplayer.data.Models.VideoResponseModel;
-import com.centura.videoplayer.data.source.Retrofit.room.VideoInfo;
+import com.centura.videoplayer.data.source.room.VideoInfo;
 
 import java.util.ArrayList;
 
 /**
  * Created by Manikandan Baskaran on 22-01-2019.
  */
-public interface PlayerActivityContract {
+public interface PlayerActContract {
 
     interface View {
 
@@ -24,6 +24,8 @@ public interface PlayerActivityContract {
         void expandInfo();
 
         void collapseInfo();
+
+        void showToast(String message);
 
         void changeTrackOnSelect(int position
                 , VideoResponseModel videoResponseModel
@@ -48,6 +50,8 @@ public interface PlayerActivityContract {
         VideoInfo getVideoInfo(String videoId);
 
         void insertVideoInfo(int position, long currentMillis, boolean isEnded);
+
+        void onClearHistoryButton();
     }
 
     interface Model {
@@ -55,6 +59,8 @@ public interface PlayerActivityContract {
         void addVideoInfo(VideoInfo videoInfo);
 
         VideoInfo getVideoInfo(String videoId);
+
+        void deleteAllInfo();
 
     }
 

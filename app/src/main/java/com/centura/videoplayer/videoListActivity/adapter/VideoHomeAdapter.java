@@ -2,6 +2,7 @@ package com.centura.videoplayer.videoListActivity.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +20,13 @@ import java.util.ArrayList;
 /**
  * Created by Manikandan Baskaran on 19-01-2019.
  */
-public class HomeVideoAdapter extends RecyclerView.Adapter<HomeVideoAdapter.ViewHolder> {
+public class VideoHomeAdapter extends RecyclerView.Adapter<VideoHomeAdapter.ViewHolder> {
 
     private Context mContext;
     private ArrayList<VideoResponseModel> arrVideoResponseModel;
     private HomePresenterImpl homePresenter;
 
-    public HomeVideoAdapter(Context context, ArrayList<VideoResponseModel> videoResponseModels, HomePresenterImpl homePresenter) {
+    public VideoHomeAdapter(Context context, ArrayList<VideoResponseModel> videoResponseModels, HomePresenterImpl homePresenter) {
         this.mContext = context;
         this.arrVideoResponseModel = videoResponseModels;
         this.homePresenter = homePresenter;
@@ -45,7 +46,7 @@ public class HomeVideoAdapter extends RecyclerView.Adapter<HomeVideoAdapter.View
         viewHolder.tvTitle.setText(videoResponseModel.getTitle());
         viewHolder.tvDesc.setText(videoResponseModel.getDescription());
         Picasso.get().load(videoResponseModel.getThumb()).into(viewHolder.ivVideoThump);
-        viewHolder.ivVideoThump.setOnClickListener(view -> homePresenter.itemClicked(i, videoResponseModel));
+        viewHolder.cvVideo.setOnClickListener(view -> homePresenter.itemClicked(i, videoResponseModel));
     }
 
     @Override
@@ -57,12 +58,14 @@ public class HomeVideoAdapter extends RecyclerView.Adapter<HomeVideoAdapter.View
 
         private ImageView ivVideoThump;
         private TextView tvTitle, tvDesc;
+        private CardView cvVideo;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivVideoThump = itemView.findViewById(R.id.ivVideoThump);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDesc = itemView.findViewById(R.id.tvDesc);
+            cvVideo = itemView.findViewById(R.id.cvVideo);
         }
     }
 }

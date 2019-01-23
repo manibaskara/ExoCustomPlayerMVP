@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.centura.videoplayer.R;
 import com.centura.videoplayer.data.Models.VideoResponseModel;
-import com.centura.videoplayer.playerActivity.PlayerActivityPresenterImpl;
+import com.centura.videoplayer.playerActivity.PlayerPresenterImpl;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,9 +29,9 @@ public class RecentListAdapter extends RecyclerView.Adapter<RecentListAdapter.Vi
     private Context mContext;
     private ArrayList<VideoResponseModel> arrVideoResponseModel;
 
-    private PlayerActivityPresenterImpl playerActivityPresenter;
+    private PlayerPresenterImpl playerActivityPresenter;
     public RecentListAdapter(Context mContext, ArrayList<VideoResponseModel> arrVideoResponseModel
-            , PlayerActivityPresenterImpl playerActivityPresenter) {
+            , PlayerPresenterImpl playerActivityPresenter) {
         this.mContext = mContext;
         this.arrVideoResponseModel = arrVideoResponseModel;
         this.playerActivityPresenter = playerActivityPresenter;

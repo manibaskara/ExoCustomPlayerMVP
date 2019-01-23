@@ -1,4 +1,4 @@
-package com.centura.videoplayer.data.source.Retrofit.room;
+package com.centura.videoplayer.data.source.room;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;

@@ -16,13 +16,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:contentDescription="@string/app_name"
         android:src="@drawable/ic_youtube"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35000000" />
+        app:layout_constraintVertical_bias="0.35000002"
+        android:contentDescription="@string/app_name" />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,6 +50,7 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/button_bg"
         android:elevation="@dimen/_5dp"
+        android:foreground="?selectableItemBackgroundBorderless"
         android:gravity="center"
         android:text="@string/sign_in_with_google"
         android:textColor="@color/colorPrimary"
@@ -67,10 +69,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/button_bg"
+        android:foreground="?selectableItemBackgroundBorderless"
         android:paddingStart="@dimen/_15dp"
         android:paddingEnd="@dimen/_15dp"
         android:text="@string/sign_out"
         android:textColor="@color/colorPrimary"
+
         android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -87,6 +91,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/button_bg"
         android:elevation="@dimen/_5dp"
+        android:foreground="?selectableItemBackgroundBorderless"
         android:paddingStart="@dimen/_15dp"
         android:paddingEnd="@dimen/_15dp"
         android:textColor="@color/colorPrimary"

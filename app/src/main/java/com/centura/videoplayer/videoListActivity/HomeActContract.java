@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by Manikandan Baskaran on 20-01-2019.
  */
-interface HomeActivityContract {
+interface HomeActContract {
     interface View extends BaseView {
         void onGetDataSuccess(String message, ArrayList<VideoResponseModel> list);
 

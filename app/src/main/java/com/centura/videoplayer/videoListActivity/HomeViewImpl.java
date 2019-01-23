@@ -11,14 +11,14 @@ import android.widget.Toast;
 import com.centura.videoplayer.base.BaseViewImpl;
 import com.centura.videoplayer.R;
 import com.centura.videoplayer.data.Models.VideoResponseModel;
-import com.centura.videoplayer.playerActivity.PlayerActivityViewImpl;
-import com.centura.videoplayer.videoListActivity.adapter.HomeVideoAdapter;
+import com.centura.videoplayer.playerActivity.PlayerViewImpl;
+import com.centura.videoplayer.videoListActivity.adapter.VideoHomeAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class HomeViewImpl extends BaseViewImpl implements HomeActivityContract.View {
+public class HomeViewImpl extends BaseViewImpl implements HomeActContract.View {
 
     private RecyclerView rvVideoList;
     private HomePresenterImpl homePresenter;
@@ -52,15 +52,11 @@ public class HomeViewImpl extends BaseViewImpl implements HomeActivityContract.V
     }
 
     @Override
-    public void onClicks() {
-    }
-
-    @Override
     public void onGetDataSuccess(String message, ArrayList<VideoResponseModel> list) {
-        Log.d(TAG, "onGetDataSuccess: "+ message);
+        Log.d(TAG, "onGetDataSuccess: " + message);
         videoResponseModelArrayList = list;
-        HomeVideoAdapter homeVideoAdapter = new HomeVideoAdapter(this, list, homePresenter);
-        rvVideoList.setAdapter(homeVideoAdapter);
+        VideoHomeAdapter videoHomeAdapter = new VideoHomeAdapter(this, list, homePresenter);
+        rvVideoList.setAdapter(videoHomeAdapter);
     }
 
     @Override
@@ -78,7 +74,7 @@ public class HomeViewImpl extends BaseViewImpl implements HomeActivityContract.V
         for (int trackPosition = 0; trackPosition < videoResponseModelArrayList.size(); trackPosition++) {
             trackAndPositionMap.put(videoResponseModelArrayList.get(trackPosition).getId(), trackPosition);
         }
-        Intent intent = new Intent(HomeViewImpl.this, PlayerActivityViewImpl.class);
+        Intent intent = new Intent(HomeViewImpl.this, PlayerViewImpl.class);
 
         intent.putExtra(SELECTED_VIDEO_ID, videoResponseModel.getId());
         intent.putExtra(TRACK_LIST, trackAndPositionMap);

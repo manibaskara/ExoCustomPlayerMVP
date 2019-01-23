@@ -7,11 +7,11 @@ import java.util.ArrayList;
 /**
  * Created by Manikandan Baskaran on 20-01-2019.
  */
-public class HomePresenterImpl implements HomeActivityContract.Presenter, HomeActivityContract.onGetDataListener, HomeActivityContract.onItemSelectedClickListener {
-    private HomeActivityContract.View mHomeView;
-    private HomeActivityContract.Model mModel;
+public class HomePresenterImpl implements HomeActContract.Presenter, HomeActContract.onGetDataListener, HomeActContract.onItemSelectedClickListener {
+    private HomeActContract.View mHomeView;
+    private HomeActContract.Model mModel;
 
-    HomePresenterImpl(HomeActivityContract.View mHomeView) {
+    HomePresenterImpl(HomeActContract.View mHomeView) {
         this.mHomeView = mHomeView;
         mModel = new HomeModelImpl(this);
 

@@ -60,7 +60,6 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
             AuthCredential credential = null;
             if (account != null)
                 credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-            mLoginView.hideProgress();
             if (credential != null) {
                 mAuth.signInWithCredential(credential)
                         .addOnCompleteListener(task1 -> {

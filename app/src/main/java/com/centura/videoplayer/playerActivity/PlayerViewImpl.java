@@ -4,16 +4,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.centura.videoplayer.base.BaseViewImpl;
 import com.centura.videoplayer.R;
 import com.centura.videoplayer.data.Models.VideoResponseModel;
-import com.centura.videoplayer.data.source.Retrofit.room.VideoInfo;
-import com.centura.videoplayer.data.source.Retrofit.room.VideoInfoDatabase;
+import com.centura.videoplayer.data.source.room.VideoInfo;
+import com.centura.videoplayer.data.source.room.VideoInfoDatabase;
 import com.centura.videoplayer.playerActivity.adapter.RecentListAdapter;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -42,16 +44,18 @@ import static com.centura.videoplayer.videoListActivity.HomeViewImpl.VIDEO_LIST_
 /**
  * Created by Manikandan Baskaran on 22-01-2019.
  */
-public class PlayerActivityViewImpl extends BaseViewImpl implements PlayerActivityContract.View, Player.EventListener {
+public class PlayerViewImpl extends BaseViewImpl implements PlayerActContract.View, Player.EventListener {
 
     private PlayerView playerView;
     private SimpleExoPlayer player;
     private ArrayList<VideoResponseModel> videoResponseModelArrayList;
     private RecyclerView rvRelated;
-    private TextView tvTitle, tvDesc;
-    private PlayerActivityPresenterImpl playerActivityPresenter;
-    HashMap<String, Integer> trackAndPositionMap;
-    String strSelectedVideoId;
+    private TextView tvTitle, tvDesc, tvClearHistory;
+    private PlayerPresenterImpl playerActivityPresenter;
+    private HashMap<String, Integer> trackAndPositionMap;
+    private String strSelectedVideoId;
+    private NestedScrollView nvScroller;
+    private static final int VIDEO_ENDED = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +65,7 @@ public class PlayerActivityViewImpl extends BaseViewImpl implements PlayerActivi
 
         VideoInfoDatabase videoInfoDatabase = VideoInfoDatabase.getVideoInfoDatabase(this);
 
-        playerActivityPresenter = new PlayerActivityPresenterImpl(this
+        playerActivityPresenter = new PlayerPresenterImpl(this
                 , videoResponseModelArrayList
                 , trackAndPositionMap
                 , videoInfoDatabase.videoInfoModel());
@@ -76,6 +80,8 @@ public class PlayerActivityViewImpl extends BaseViewImpl implements PlayerActivi
         playerView = findViewById(R.id.exo_player);
         tvTitle = findViewById(R.id.tvTitle);
         tvDesc = findViewById(R.id.tvDesc);
+        nvScroller = findViewById(R.id.nvScroller);
+        tvClearHistory = findViewById(R.id.tvClearHistory);
 
         Intent intent = getIntent();
         if (intent != null
@@ -90,6 +96,7 @@ public class PlayerActivityViewImpl extends BaseViewImpl implements PlayerActivi
             playerView.setPlayer(player);
         } else {
             Toast.makeText(this, "Something went wrong, please try again.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
@@ -131,11 +138,15 @@ public class PlayerActivityViewImpl extends BaseViewImpl implements PlayerActivi
         tvTitle.setText(playingVideoModel.getTitle());
         tvDesc.setText(playingVideoModel.getDescription());
         rvRelated.setAdapter(new RecentListAdapter(this, remainingArrModels, playerActivityPresenter));
+      /*  nvScroller.fullScroll(View.FOCUS_UP);
+        nvScroller.smoothScrollTo(0, 0);*/
     }
 
     @Override
     public void onClicks() {
         tvTitle.setOnClickListener(view -> playerActivityPresenter.expandOnclick(tvDesc.getMaxLines()));
+
+        tvClearHistory.setOnClickListener(view -> playerActivityPresenter.onClearHistoryButton());
     }
 
     @Override
@@ -150,6 +161,11 @@ public class PlayerActivityViewImpl extends BaseViewImpl implements PlayerActivi
     }
 
     @Override
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void changeTrackOnSelect(int position
             , VideoResponseModel videoResponseModel
             , ArrayList<VideoResponseModel> remainingArrModels
@@ -158,19 +174,17 @@ public class PlayerActivityViewImpl extends BaseViewImpl implements PlayerActivi
 
         int pos = player.getCurrentWindowIndex();
         long currentMillis = player.getCurrentPosition();
-
-
         tvTitle.setText(videoResponseModel.getTitle());
         tvDesc.setText(videoResponseModel.getDescription());
-
         player.seekTo(position, isEnded && seekTo < 0 ? C.TIME_UNSET : seekTo);
 
         player.setPlayWhenReady(true);
         rvRelated.setAdapter(new RecentListAdapter(this, remainingArrModels, playerActivityPresenter));
 
+        rvRelated.scrollToPosition(0);
+        nvScroller.fullScroll(View.FOCUS_UP);
+        nvScroller.smoothScrollTo(0, 0);
         playerActivityPresenter.insertVideoInfo(pos, currentMillis, false);
-        Toast.makeText(this, "position " + pos + " millis " + currentMillis, Toast.LENGTH_SHORT).show();
-
 
     }
 
@@ -212,13 +226,10 @@ public class PlayerActivityViewImpl extends BaseViewImpl implements PlayerActivi
     @Override
     public void onPositionDiscontinuity(int reason) {
         int trackPosition = player.getCurrentWindowIndex();
-        if (reason == 0) {
+        if (reason == VIDEO_ENDED) {
             playerActivityPresenter.onTrackEnded(trackPosition);
             playerActivityPresenter.insertVideoInfo(trackPosition, player.getCurrentPosition(), true);
-
-        } /*else {
-            playerActivityPresenter.insertVideoInfo(trackPosition, player.getCurrentPosition(), false);
-        }*/
+        }
 
     }
 

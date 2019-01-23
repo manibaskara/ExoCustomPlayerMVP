@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
  */
 public abstract class BaseViewImpl extends AppCompatActivity implements BaseView {
 
-    public boolean progressAlive = false;
+    private boolean progressAlive = false;
     private ProgressDialog progressDialog;
 
     @Override
@@ -18,16 +18,6 @@ public abstract class BaseViewImpl extends AppCompatActivity implements BaseView
 
     @Override
     public void onClicks() {
-
-    }
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void hideProgress() {
 
     }
 

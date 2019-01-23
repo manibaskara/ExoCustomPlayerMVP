@@ -1,16 +1,16 @@
 package com.centura.videoplayer.playerActivity;
 
-import com.centura.videoplayer.data.source.Retrofit.room.VideoInfo;
-import com.centura.videoplayer.data.source.Retrofit.room.VideoInfoDAO;
+import com.centura.videoplayer.data.source.room.VideoInfo;
+import com.centura.videoplayer.data.source.room.VideoInfoDAO;
 
 /**
  * Created by Manikandan Baskaran on 22-01-2019.
  */
-public class PlayerActivityModelImpl implements PlayerActivityContract.Model {
+public class PlayerModelImpl implements PlayerActContract.Model {
 
     private VideoInfoDAO videoInfoDAO;
 
-    PlayerActivityModelImpl(VideoInfoDAO videoInfoDAO) {
+    PlayerModelImpl(VideoInfoDAO videoInfoDAO) {
         this.videoInfoDAO = videoInfoDAO;
     }
 
@@ -23,5 +23,10 @@ public class PlayerActivityModelImpl implements PlayerActivityContract.Model {
     @Override
     public VideoInfo getVideoInfo(String videoId) {
         return videoInfoDAO.getVideoInfo(videoId);
+    }
+
+    @Override
+    public void deleteAllInfo() {
+        videoInfoDAO.deleteAll();
     }
 }

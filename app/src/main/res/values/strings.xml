@@ -13,5 +13,6 @@
     <string name="thumbnail">Thumbnail</string>
     <string name="related_videos">Related Videos:</string>
     <string name="sign_in_with_google">Sign In with Google</string>
-    <string name="mvideo_player">MVideo Player</string>
+    <string name="mVideo_player">MVideo Player</string>
+    <string name="clear_history">Clear History</string>
 </resources>

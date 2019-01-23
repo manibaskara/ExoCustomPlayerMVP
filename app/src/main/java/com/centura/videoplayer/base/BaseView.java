@@ -9,9 +9,5 @@ public interface BaseView {
 
     void onClicks();
 
-    void showProgress();
-
-    void hideProgress();
-
     void showDialog(String message, Boolean flag);
 }
