@@ -24,3 +24,7 @@ Description​: This is a simple online video player Application which is develo
 
 
 ● Libraries Used, ExoPlayer, Room, Retrofit, Firebase Authendication.
+
+
+
+APK Link:->>>>  https://www.dropbox.com/s/dts2d0evrdq6a7x/MVideo_Player_v1.apk?dl=1
