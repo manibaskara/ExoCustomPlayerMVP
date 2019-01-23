@@ -23,4 +23,4 @@ Description​: This is a simple online video player Application which is develo
 ● For Playing videos, Google's ExoPlayer has been used.
 
 
-//Libraries Used, ExoPlayer, Room, Retrofit.
+● Libraries Used, ExoPlayer, Room, Retrofit, Firebase Authendication.
